@@ -2,6 +2,10 @@
 
 OPTS="$@"
 
+source getenv.sh
+
+OPTS=$(local_settings)
+
 clear; reset;
 
 PYTHON=$(which python)
@@ -17,28 +21,30 @@ MYSQL=$(which mysql)
 
 MANAGE="${PYTHON} manage.py"
 
-function reset_mysql() {	
+function reset_mysql() {
+	echo "Working with MySQL ..."	
 	DROP_DB_CMD="drop database ${DBNAME}"
 	CREATE_DB_CMD="create database ${DBNAME}"
 
-	echo "Dropping database ${DBNAME} ..."
+	echo "  Dropping database ${DBNAME} ..."
 	${MYSQL} -u ${DBUSER} -p"${DBPASS}" -e "$DROP_DB_CMD"
-	echo " Done."
-	echo "Recreating database ${DBNAME} ..."
+	echo "   Done."
+	echo "  Recreating database ${DBNAME} ..."
 	${MYSQL} -u ${DBUSER} -p"${DBPASS}" -e "$CREATE_DB_CMD"
-	echo " Done."
+	echo "   Done."
 }
 
 function reset_postgresql() {
+	echo "Working with Postgresql ..."
 	DROP_DB_CMD="dropdb ${DBNAME}"
 	CREATE_DB_CMD="createdb ${DBNAME} -O ${DBUSER}"
 
-	echo "Dropping database ${DBNAME} ..."
+	echo "  Dropping database ${DBNAME} ..."
 	$DROP_DB_CMD
-	echo " Done."
-	echo "Recreating database ${DBNAME} ..."
+	echo "   Done."
+	echo "  Recreating database ${DBNAME} ..."
 	$CREATE_DB_CMD
-	echo " Done."
+	echo "   Done."
 }
 
 function migrate() {

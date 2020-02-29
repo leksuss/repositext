@@ -4,17 +4,11 @@ import os
 import sys
 
 import django
+import script_utils
 
 sys.path.append('.')
 
-# os.environ['DJANGO_SETTINGS_MODULE'] = 'repositext.settings'
-
-try:    
-    from local import project_settings as project_settings
-    os.environ['DJANGO_SETTINGS_MODULE'] = project_settings
-except ModuleNotFoundError:
-    project_settings = 'repositext.settings'
-    os.environ['DJANGO_SETTINGS_MODULE'] = project_settings
+os.environ['DJANGO_SETTINGS_MODULE'] = script_utils.get_project_settings()
 
 django.setup()
 

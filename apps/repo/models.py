@@ -59,3 +59,16 @@ class Document(UuidPrimaryKey, Timestamped):
 
     def __str__(self):
         return self.name
+
+
+class Organization(models.Model):
+    name = models.CharField('Name', max_length=50, unique=True)
+    address = models.CharField('Address', max_length=50)
+    city = models.CharField('City', max_length=50)
+    state = models.CharField('State or Province', max_length=30)
+    country = models.CharField('Country', max_length=2)
+    postal_code = models.CharField('Zip or Postal Code', max_length=20)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name

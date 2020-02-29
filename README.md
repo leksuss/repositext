@@ -44,6 +44,8 @@ project_settings = 'repositext.settings-local'
 
 ```
 
+*This will point to a local settings file called repositext.settings-local.py.*
+
 Be aware that local.py has been added to the .gitignore file so your local.py should not cause any issues with the project code.
 
 * Run the project:

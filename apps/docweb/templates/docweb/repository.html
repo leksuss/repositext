@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,7 +111,7 @@
               </tr>
               <tr>
                 <td>
-                  <img src="/static/img/icons/folder.svg" />
+                  <img src={% static "img/icons/folder.svg" %} alt="Folder" />
                 </td>
                 <td>
                   <a href="{% url 'repo-view' folder.id %}">
@@ -150,7 +151,7 @@
                 </th>
               </tr>
               <tr>
-                <td><img src="/static/img/icons/file.svg" /></td>
+                <td><img src={% static "img/icons/file.svg" %} alt="Document" /></td>
                 <td>{{ document.name }}</td>
                 <td>{{ document.description }}</td>
                 <td>{{ document.owner }}</td>

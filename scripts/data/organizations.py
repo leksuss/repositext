@@ -14,7 +14,7 @@ from apps.repo.models import Organization  # noqa E402
 
 ADD_TEST_FOLDERS = True
 
-admin_user = User.objects.get(username='admin')
+sample_user = User.objects.get(username='harlin')
 
 organization_list = [
     {
@@ -24,7 +24,7 @@ organization_list = [
         'state': 'AZ',
         'country': 'US',
         'postal_code': '44444-2233',
-        'owner': admin_user,
+        'owner': sample_user,
     }
 ]
 

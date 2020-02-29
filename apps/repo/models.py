@@ -44,6 +44,10 @@ class DocumentVersion(UuidPrimaryKey, Timestamped):
         'Document', on_delete=models.CASCADE
     )
 
+    class Meta:
+        verbose_name = 'Document Version'
+        verbose_name_plural = 'Document Versions'
+
     def __str__(self):
         return f'{self.parent.name}:{self.version}'
 
@@ -58,6 +62,9 @@ class Document(UuidPrimaryKey, Timestamped):
     versions = models.ManyToManyField(
         DocumentVersion, blank=True
     )
+
+    def newest_version(self):
+        return self.versions.filter().order_by('-created')
 
     def __str__(self):
         return self.name
@@ -83,6 +90,10 @@ class UserProfile(models.Model):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     skype = models.CharField('Skype', max_length=50, null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'User Profile'
+        verbose_names = 'User Profiles'
 
     def __str__(self):
         return self.user.username

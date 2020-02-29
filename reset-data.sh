@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+OPTS="$@"
+
 clear; reset;
 
 PYTHON=$(which python)
@@ -27,18 +29,30 @@ function reset_mysql() {
 	echo " Done."
 }
 
+function reset_postgresql() {
+	DROP_DB_CMD="dropdb ${DBNAME}"
+	CREATE_DB_CMD="createdb ${DBNAME} -O ${DBUSER}"
+
+	echo "Dropping database ${DBNAME} ..."
+	$DROP_DB_CMD
+	echo " Done."
+	echo "Recreating database ${DBNAME} ..."
+	$CREATE_DB_CMD
+	echo " Done."
+}
+
 function migrate() {
 
 	rm -rf apps/repo/migrations
 
-	${MANAGE} makemigrations
-	${MANAGE} migrate
-	${MANAGE} makemigrations repo
-	${MANAGE} migrate repo
+	${MANAGE} makemigrations $OPTS
+	${MANAGE} migrate $OPTS
+	${MANAGE} makemigrations repo $OPTS
+	${MANAGE} migrate repo $OPTS
 }
 
 function create_superuser() {
-	${MANAGE} createsuperuser --user admin --email admin@localhost --noinput
+	${MANAGE} createsuperuser --user admin --email admin@localhost --noinput $OPTS
 }
 
 function run_data_scripts() {
@@ -52,6 +66,9 @@ function main() {
 	case $DBTYPE in
 		mysql)
 			reset_mysql;
+			;;
+		postgresql)
+			reset_postgresql;
 			;;
 			*)
 			echo "A function for ${DBTYPE} has not been implemented."

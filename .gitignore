@@ -132,3 +132,4 @@ dmypy.json
 content/
 static/js/node_modules/
 settings-local.py
+local.py

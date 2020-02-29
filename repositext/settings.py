@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'apps.repo',
     'apps.docweb',
+    'apps.users',
 ]
 
 MIDDLEWARE = [
@@ -81,8 +82,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': 'localhost',
         'NAME': 'repositext',
-        'USER': 'repositext',
-        'PASSWORD': 'admin',
+        'USER': 'root',
+        'PASSWORD': '1234',
         'PORT': '3306',
     }
 }
@@ -131,3 +132,7 @@ STATICFILES_DIRS = (
 )
 
 MAX_RECENT_DOCS = 5
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'

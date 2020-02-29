@@ -1,0 +1,14 @@
+{% extends "users/base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign Up</title>
+</head>
+<body>
+	<form method="POST" action="{% url 'signup' %}">
+		{{form.as_p}}
+	<input type="submit" value="Submit" class="btn btn-primary">
+</body> 
+</html>
+{% endblock content %}

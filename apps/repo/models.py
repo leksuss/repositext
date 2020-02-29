@@ -71,6 +71,7 @@ class Organization(models.Model):
     country = models.CharField('Country', max_length=2)
     postal_code = models.CharField('Zip or Postal Code', max_length=20)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.TextField('Description', null=True, blank=True)
 
     def __str__(self):
         return self.name

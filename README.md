@@ -32,7 +32,19 @@ You may run into an issue with installing graphviz. A quick way to solve that is
 # sudo apt-get install graphviz-dev
 ```
 
-Be aware that you can use any database you like (even SQLite3 if you don't have a db server configured) but the project is set up to use MySQL. Just make sure that your local environment uses a local settings.py that doesn't get added to any branch you're working on (hint: put your settings-\*.py file in the .gitignore file).
+#### Project Database
+
+Be aware that you can use any database you like (even SQLite3 if you don't have a db server configured) but the project is set up to use MySQL by default. Just make sure that your local environment uses a local settings.py that doesn't get added to any branch you're working on (hint: put your settings-\*.py file in the .gitignore file).
+
+I've included a sample MySQL and Postgresql settings in the repositext settings folder. I've also added functionality that allows you to put a local.py in the project root directory where you can put a pointer (project_settings in this example below) that will be used with the project scripts (like reset-data.sh, runserver.sh, etc.). Add it like so and save as local.py:
+
+```python
+
+project_settings = 'repositext.settings-local'
+
+```
+
+Be aware that local.py has been added to the .gitignore file so your local.py should not cause any issues with the project code.
 
 * Run the project:
 

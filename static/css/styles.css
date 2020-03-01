@@ -13,16 +13,22 @@ padding: 0.5em;
 padding-left: 2em;
 color: white;
 display: grid;
-grid-template-columns: 80% 20%;
+grid-template-columns: 1fr 1fr;
+}
+
+.display-name {
+display: grid;
+grid-column-start: 1;
+grid-column-end: 2;
 }
 
 .navigation {
 display: grid;
-grid-template-columns: repeat(3, 1fr);
-grid-gap: 1em;
+grid-template-columns: 80% 5% 5% 5% 5%;
+grid-column-gap: 3em;
 align-content: center;
 justify-items: end;
-padding: 2em;
+justify-content: end;
 }
 
 .content {

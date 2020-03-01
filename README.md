@@ -59,7 +59,7 @@ Be aware that local.py has been added to the .gitignore file so your local.py sh
 or you can use the handy runserver.sh script that includes environment information:
 
 ```
-# ./runserver [ use any normal options for manage.py runserver ]
+# ./runserver.sh [ use any normal options for manage.py runserver ]
 ```
 
 You'll likely see a warning message saying that models may need to be migrated. 

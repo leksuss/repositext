@@ -93,7 +93,7 @@ class UserProfile(models.Model):
 
     class Meta:
         verbose_name = 'User Profile'
-        verbose_names = 'User Profiles'
+        verbose_name_plural = 'User Profiles'
 
     def __str__(self):
         return self.user.username

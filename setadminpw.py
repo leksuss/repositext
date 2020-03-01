@@ -4,7 +4,15 @@ import os
 
 import django
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'repositext.settings'
+# os.environ['DJANGO_SETTINGS_MODULE'] = 'repositext.settings'
+
+try:    
+    from local import project_settings as project_settings
+    os.environ['DJANGO_SETTINGS_MODULE'] = project_settings
+except ModuleNotFoundError:
+    project_settings = 'repositext.settings'
+    os.environ['DJANGO_SETTINGS_MODULE'] = project_settings
+
 django.setup()
 
 from django.contrib.auth.models import User  # noqa E402

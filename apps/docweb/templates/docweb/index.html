@@ -47,7 +47,7 @@
 
         <div class="repository">
           <h4>
-            <a href="/docweb/repository/folder/-ROOT-/">
+            <a href="{% url 'repository-view' %}">
               Repository
             </a>
           </h4>
@@ -66,7 +66,7 @@
               <td>at {{ doc.created }}</td>
               <td>
                 in folder 
-                <a href="/docweb/repository/folder/{{ doc.parent.id }}/">
+                <a href="{% url 'repo-view' doc.parent.id %}">
                   {{ doc.parent }}
                 </a>
               </td>

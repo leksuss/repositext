@@ -1,11 +1,17 @@
 #!/usr/bin/env python
 
+import importlib
 import os
 import sys
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'repositext.settings'
-
-import repositext.settings as settings # noqa E402
+try:    
+    from local import project_settings as project_settings
+    os.environ['DJANGO_SETTINGS_MODULE'] = project_settings
+    settings = importlib.import_module(project_settings, package=None)
+except ModuleNotFoundError:
+    project_settings = 'repositext.settings'
+    os.environ['DJANGO_SETTINGS_MODULE'] = project_settings
+    import repositext.settings as settings # noqa E402
 
 
 class ProjectSettingsExtractor:

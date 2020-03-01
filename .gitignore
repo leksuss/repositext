@@ -131,4 +131,5 @@ dmypy.json
 # Application specific
 content/
 static/js/node_modules/
-
+settings-local.py
+local.py

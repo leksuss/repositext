@@ -40,9 +40,3 @@ class RepositoryView(View):
                 'child_documents': child_documents,
             }
         )
-
-
-class LogoutView(View):
-    def get(self, request):
-        logout(request)
-        return redirect('login')

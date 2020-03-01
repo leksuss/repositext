@@ -81,8 +81,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': 'localhost',
         'NAME': 'repositext',
-        'USER': 'root',
-        'PASSWORD': '1234',
+        'USER': 'repositext',
+        'PASSWORD': 'admin',
         'PORT': '3306',
     }
 }

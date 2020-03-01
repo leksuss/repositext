@@ -62,9 +62,9 @@ or you can use the handy runserver.sh script that includes environment informati
 # ./runserver.sh [ use any normal options for manage.py runserver ]
 ```
 
-You'll likely see a warning message saying that models may need to be migrated. 
+You'll likely see a warning message saying that models may need to be migrated.
 
-To fill the database with some sample data, it would be a good idea to run reset-data.sh.
+To migrate the database, create a superuser and fill the db with some sample data, you can run reset-data.sh.
 
 ```
 # ./reset-data.sh

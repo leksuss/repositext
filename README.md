@@ -32,7 +32,7 @@ You may run into an issue with installing graphviz. A quick way to solve that is
 # sudo apt-get install graphviz-dev
 ```
 
-#### Project Database
+#### Project database
 
 Be aware that you can use any database you like (even SQLite3 if you don't have a db server configured) but the project is set up to use MySQL by default. Just make sure that your local environment uses a local settings.py that doesn't get added to any branch you're working on (hint: put your settings-\*.py file in the .gitignore file).
 
@@ -48,6 +48,8 @@ project_settings = 'repositext.settings-local'
 
 Be aware that local.py has been added to the .gitignore file so your local.py should not cause any issues with the project code.
 
+#### Running the development server
+
 * Run the project:
 
 ```
@@ -60,7 +62,19 @@ or you can use the handy runserver.sh script that includes environment informati
 # ./runserver [ use any normal options for manage.py runserver ]
 ```
 
-You'll likely see a warning message saying that models may need to be migrated. You can do that like so:
+You'll likely see a warning message saying that models may need to be migrated. 
+
+To fill the database with some sample data, it would be a good idea to run reset-data.sh.
+
+```
+# ./reset-data.sh
+```
+
+Assuming you have a MySQL database configured, it will, out of the box, add a -ROOT- directory inside the UI along with a few sample subfolders and documents.
+
+But, if you prefer, you can do the manual setting up of the database.
+
+You can do that with these commands (this is required at a minimum if you don't run reset-data.sh):
 
 ```
 # ./manage.py makemigrations
@@ -69,7 +83,7 @@ You'll likely see a warning message saying that models may need to be migrated. 
 
 After starting the development server, you can access http://localhost:8000/docweb/ or http://localhost:8000/admin/ if desired.
 
-In order to use the admin console, you'll need to set up a superuser like so:
+In order to use the admin console, you'll need to set up a superuser like so (know that the reset-data.sh script will do this for you):
 
 ```
 # ./manage.py createsuperuser
@@ -77,7 +91,8 @@ In order to use the admin console, you'll need to set up a superuser like so:
 
 Follow the directions and you should then have a superuser login with password.
 
-Once you have Repositext running, you will run into a folder not found when you open http://localhost:8000/docweb/. You will need to add a folder called '-ROOT-' (with no parent) in the admin console.
+
+Once you have Repositext running if you did not run reset-data.sh, you will run into a folder not found when you open http://localhost:8000/docweb/. You will need to add a folder called '-ROOT-' (with no parent) in the admin console.
 
 ![Add root folder in django admin](docs/screenshots/add_root_folder.png)
 
@@ -87,13 +102,12 @@ Next, to continue developing it would be good to create two more folders which a
 
 ![Add root folder in django admin](docs/screenshots/add_test_folder1.png)
 
-This isn't necessary but will help you understand the rendering of the repository/folder view.
-
-There is a script called reset-data.sh that will do all of these things:
+As previously mentioned, there is a script called reset-data.sh that will do all of these things:
 
 * Recreate/create the database (assumes you've set up the database properly in settings.py)
 * Runs makemigrations and migrate
 * Creates a superuser with username of admin and password of admin.
 * Adds the -ROOT- folder and a few test folders.
+* Will also add some test documents.
 
 To run it, call ./reset-data.sh.

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from repositext.settings import MAX_RECENT_DOCS
 from apps.repo.models import Document, Folder
-
+from django.contrib.auth import logout
 
 class IndexView(View):
     def get(self, request):
@@ -40,3 +40,9 @@ class RepositoryView(View):
                 'child_documents': child_documents,
             }
         )
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('login')

@@ -3,6 +3,11 @@
 OPTS="$@"
 PYTHON=$(which python)
 
+source getenv.sh
+
+source getenv.sh
+
+OPTS=$(local_settings)
 
 function display_head() {
 	echo "Running Django Development Server with following:"

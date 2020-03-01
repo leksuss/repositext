@@ -1,12 +1,24 @@
-{% extends 'registration/base.html' %}
-
-{% block title %}Login{% endblock %}
-
-{% block content %}
-  <h4><strong>Login</strong></h4>
-  <form method="POST" action="{% url 'login' %}">
-  	{% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Login</button>
-  </form>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Repositext</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="header">
+  	<div class="display-name">
+  	<h4>Repositext</h4>
+  	</div>
+  </div>
+  <div class="container">
+  	<div class="login">
+  		<h4><strong>Login</strong></h4>
+  		<form method="POST" action="{% url 'login' %}">
+  			{% csrf_token %}
+    		{{ form.as_p }}
+    	<button type="submit" class="btn btn-primary">Login</button>
+  		</form>
+  	</div>
+  </div>	
+</body>
+</html>

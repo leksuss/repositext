@@ -52,3 +52,12 @@ border-bottom: 1px dashed gray;
 td {
 padding: 1em;
 }
+
+.container {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.login {
+	text-align: center;
+}

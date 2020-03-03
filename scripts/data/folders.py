@@ -24,9 +24,17 @@ init_folders = [
         'name': '-ROOT-',
         'description': 'System root folder.',
         'owner': admin_user,
-    }
+    },
 ]
 
+root_folders = [
+    {
+        'name': 'Home',
+        'description': 'System home folder for users.',
+        'owner': admin_user,
+        'parent': '-ROOT-',
+    },
+]
 
 class FolderLoader:
 
@@ -49,10 +57,22 @@ class FolderLoader:
             folder.parent = self._get_root_folder()
             folder.save()
 
+    def add_root_folders(self):
+        for each in root_folders:
+            folder = Folder()
+            folder.name = each['name']
+            folder.description = each['description']
+            folder.owner = each['owner']
+            folder.parent = Folder.objects.get(name=each['parent'])
+            folder.save()
+
     def run(self):
         self.add_init_folders()
+        self.add_root_folders()
+
         if ADD_TEST_FOLDERS:
             self.add_test_folders()
+            
 
 
 if __name__ == '__main__':

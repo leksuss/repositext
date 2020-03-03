@@ -1,5 +1,8 @@
 #!/usr/bin/env bash 
 
-# ./manage.py test --failfast --parallel --settings repositext.settings-local 
-./manage.py test 
+OPTS="$@"
+
+clear; reset;
+
+./manage.py test --failfast $OPTS tests
 

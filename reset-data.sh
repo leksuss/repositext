@@ -48,6 +48,18 @@ function reset_postgresql() {
 	echo "   Done."
 }
 
+function reset_sqlite3() {
+	echo "Working with SQLite3 ..."
+	DROP_DB_CMD="rm -rf db.sqlite3"
+	CREATE_DB_CMD=""
+
+	echo "  Dropping database ${DBNAME} ..."
+	$DROP_DB_CMD
+	echo "  Done."
+	echo "  Migrations will create database automatically ..."
+	echo "  Done."
+}
+
 function migrate() {
 
 	rm -rf apps/repo/migrations
@@ -76,6 +88,9 @@ function main() {
 			;;
 		postgresql)
 			reset_postgresql;
+			;;
+		sqlite3)
+			reset_sqlite3;
 			;;
 			*)
 			echo "A function for ${DBTYPE} has not been implemented."

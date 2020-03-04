@@ -7,6 +7,7 @@ source getenv.sh
 OPTS=$(local_settings)
 
 clear; reset;
+./delete-pyc.sh
 
 PYTHON=$(which python)
 PROJ_INFO="$PYTHON project_info.py"

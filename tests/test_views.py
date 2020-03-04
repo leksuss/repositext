@@ -30,7 +30,6 @@ class RepositoryTestCase(TestCase):
 
 class UserHomeTestCase(TestCase):
     def setUp(self):
-        # self.root_folder = get_root_folder()
         self.home_folder = get_home_folder()
 
     def test_get(self):
@@ -42,5 +41,13 @@ class UserHomeTestCase(TestCase):
             password='password',
         )
         response = client.get('/docweb/', follow=True)
+        response = client.post(
+            '/docweb/login/',
+            {
+                'username': username,
+                'password': password,
+            },
+            follow=True
+        )
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(b'Home folder for testuser' in response.content)
+        self.assertTrue(b'Home folder for ' in response.content)

@@ -135,3 +135,5 @@ MAX_RECENT_DOCS = 5
 LOGIN_REDIRECT_URL = '/docweb/'
 
 LOGOUT_REDIRECT_URL = '/docweb/login/'
+
+LOGIN_URL = '/docweb/login/'

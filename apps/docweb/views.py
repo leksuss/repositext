@@ -66,7 +66,6 @@ class UserHomeView(View):
             top_folder = user_folder
         
         child_folders = Folder.objects.filter(parent=top_folder)
-        print(child_folders)
         child_documents = Document.objects.filter(parent=top_folder)
         return render(
             request,

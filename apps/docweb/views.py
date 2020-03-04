@@ -4,6 +4,17 @@ from django.views import View
 from repositext.settings import MAX_RECENT_DOCS
 from apps.repo.models import Document, Folder
 
+
+def get_user_home_folder(request, home_folder):
+    user_folder = Folder()
+    user_folder.name = request.user.username
+    user_folder.description = f'Home folder for {request.user.username}'
+    user_folder.owner = request.user
+    user_folder.parent = home_folder
+    user_folder.save()
+    return user_folder
+
+
 class IndexView(View):
     def get(self, request):
         if request.user.username == 'admin':
@@ -57,13 +68,7 @@ class UserHomeView(View):
                 parent=Folder.objects.get(name='Home', parent=home_folder)
             )
         except Folder.DoesNotExist:
-            user_folder = Folder()
-            user_folder.name = request.user.username
-            user_folder.description = f'Home folder for {username}'
-            user_folder.owner = request.user
-            user_folder.parent = home_folder
-            user_folder.save()
-            top_folder = user_folder
+            top_folder = get_user_home_folder(request, home_folder)
         
         child_folders = Folder.objects.filter(parent=top_folder)
         child_documents = Document.objects.filter(parent=top_folder)

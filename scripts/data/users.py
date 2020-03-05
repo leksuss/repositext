@@ -33,6 +33,7 @@ user_list = [
 
 
 if __name__ == '__main__':
+    print('  Adding sample users ...')
     for u in user_list:
         user = User()
         user.username = u['username']
@@ -44,3 +45,4 @@ if __name__ == '__main__':
         user.userprofile.birth_date = u['birth_date']
         user.userprofile.skype = u['skype']
         user.save()
+    print('  Done.')

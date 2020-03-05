@@ -77,6 +77,7 @@ documents = [
 
 
 if __name__ == '__main__':
+    print('  Adding test documents ...')
     if ADD_TEST_DOCUMENTS:
         for doc in documents:
             document = Document()
@@ -95,3 +96,4 @@ if __name__ == '__main__':
             doc_ver.save()
             document.versions.add(doc_ver)
             document.save()
+    print('  Done.')

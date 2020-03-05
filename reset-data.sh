@@ -75,10 +75,12 @@ function create_superuser() {
 }
 
 function run_data_scripts() {
+	echo "Running data scripts ..."
 	$PYTHON scripts/data/folders.py
     $PYTHON scripts/data/documents.py
 	$PYTHON scripts/data/users.py
     $PYTHON scripts/data/organizations.py
+	echo "Done."
 }
 
 function main() {

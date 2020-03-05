@@ -67,12 +67,14 @@ class FolderLoader:
             folder.save()
 
     def run(self):
+        print('  Adding system and example folders ...')
         self.add_init_folders()
         self.add_root_folders()
 
         if ADD_TEST_FOLDERS:
             self.add_test_folders()
             
+        print('  Done.')
 
 
 if __name__ == '__main__':

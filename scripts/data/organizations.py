@@ -33,8 +33,10 @@ organization_list = [
 
 
 if __name__ == '__main__':
+    print('  Adding sample organizations ...')
     for org in organization_list:
         organization = Organization()
         for k, v in org.items():
             setattr(organization, k, v)
         organization.save()
+    print('  Done.')

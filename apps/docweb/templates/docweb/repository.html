@@ -4,6 +4,21 @@
 <head>
   <title>Repositext - Light CMS</title>
   <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+
+  <style>
+    .model-dialog {
+      border: 1px solid gray;
+    }
+
+    button[type="button"],[type="submit"]  {
+      border: 1px;
+      background: none;
+      background-color: rgb(155, 207, 240);
+      box-shadow: none;
+      border-radius: 5px;
+      padding: 0.5em;
+    }
+  </style>
 </head>
 <body>
   <div class="wrapper">
@@ -72,8 +87,37 @@
             </tr>
           </table>
         </div>
+
+        <dialog id="add-folder-dialog" class="model-dialog"> 
+          <h2>Add Folder in {{ top_folder.name }}</h2>
+          <form action="" method="POST">
+            {% csrf_token %}
+            <table>
+              {{ add_folder_form.as_table }}
+              <tr>
+                <td></td>
+                <td>
+                  <button type="submit">Save</button>
+                  <button type="button" onclick='document.getElementById("add-folder-dialog").close();'>Cancel</button>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </dialog>
+
+        {% if display_add_form_dialog %}
+          <script>
+            document.getElementById("add-folder-dialog").showModal();
+          </script>
+        {% endif %}
+
         <div class="children">
           <h3>Folders</h3>
+          <div class="add-folder">
+            <a href="#" onclick='document.getElementById("add-folder-dialog").showModal();'>
+              Create New Folder
+            </a>
+          </div>
           <table class="child-folder">
           {% for folder in child_folders %}
               <tr>

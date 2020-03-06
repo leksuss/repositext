@@ -3,6 +3,7 @@ from django.shortcuts import render, reverse
 from django.views import View
 from repositext.settings import MAX_RECENT_DOCS
 from apps.repo.models import Document, Folder
+from .forms import AddFolderForm
 
 
 def get_user_home_folder(request, home_folder):
@@ -46,6 +47,7 @@ class RepositoryView(View):
             top_folder = Folder.objects.get(name='-ROOT-')
         child_folders = Folder.objects.filter(parent=top_folder)
         child_documents = Document.objects.filter(parent=top_folder)
+        add_folder_form = AddFolderForm(owner=request.user, parent=top_folder)
         return render(
             request,
             'docweb/repository.html',
@@ -53,8 +55,37 @@ class RepositoryView(View):
                 'top_folder': top_folder,
                 'child_folders': child_folders,
                 'child_documents': child_documents,
+                'add_folder_form': add_folder_form,
             }
         )
+
+    def post(self, request, folder_id):
+        parent_folder = Folder.objects.get(pk=folder_id)
+        add_folder_form = AddFolderForm(
+            request.POST, parent=parent_folder, owner=request.user
+        )
+
+        if add_folder_form.is_valid():
+            new_folder = add_folder_form.save(commit=False)
+            new_folder.owner = request.user
+            new_folder.parent = parent_folder
+            new_folder.save()
+            return HttpResponseRedirect(reverse('repo-view', args=[folder_id]))
+        else:
+            child_folders = Folder.objects.filter(parent=parent_folder)
+            child_documents = Document.objects.filter(parent=parent_folder)
+            return render(
+                request,
+                'docweb/repository.html',
+                {
+                    'top_folder': parent_folder,
+                    'child_folders': child_folders,
+                    'child_documents': child_documents,
+                    'add_folder_form': add_folder_form,
+                    'display_add_form_dialog': True,
+                }
+            )
+
 
 
 class UserHomeView(View):
@@ -71,4 +102,3 @@ class UserHomeView(View):
             top_folder = get_user_home_folder(request, home_folder)
         
         return HttpResponseRedirect(reverse('repo-view', args=[top_folder.id]))
-

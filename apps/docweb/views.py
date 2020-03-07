@@ -3,7 +3,7 @@ from django.shortcuts import render, reverse
 from django.views import View
 from repositext.settings import MAX_RECENT_DOCS
 from apps.repo.models import Document, Folder
-from .forms import AddFolderForm
+from .forms import AddFolderForm, AddDocumentForm, AddDocumentVersionForm
 
 
 def get_user_home_folder(request, home_folder):
@@ -47,7 +47,9 @@ class RepositoryView(View):
             top_folder = Folder.objects.get(name='-ROOT-')
         child_folders = Folder.objects.filter(parent=top_folder)
         child_documents = Document.objects.filter(parent=top_folder)
-        add_folder_form = AddFolderForm(owner=request.user, parent=top_folder)
+        add_folder_form = AddFolderForm(owner=request.user, parent=top_folder, auto_id="folder_id_%s")
+        add_document_form = AddDocumentForm(owner=request.user, parent=top_folder, auto_id="document_id_%s")
+        add_document_version_form = AddDocumentVersionForm()
         return render(
             request,
             'docweb/repository.html',
@@ -56,6 +58,8 @@ class RepositoryView(View):
                 'child_folders': child_folders,
                 'child_documents': child_documents,
                 'add_folder_form': add_folder_form,
+                'add_document_form': add_document_form,
+                'add_document_version_form': add_document_version_form,
             }
         )
 
@@ -102,3 +106,39 @@ class UserHomeView(View):
             top_folder = get_user_home_folder(request, home_folder)
         
         return HttpResponseRedirect(reverse('repo-view', args=[top_folder.id]))
+
+
+class AddDocumentView(View):
+    def post(self, request, folder_id):
+        parent_folder = Folder.objects.get(pk=folder_id)
+        add_document_form = AddDocumentForm(request.POST, owner=request.user, parent=parent_folder)
+        add_document_version_form = AddDocumentVersionForm(request.POST, request.FILES)
+
+        if add_document_form.is_valid() and add_document_version_form.is_valid():
+            doc = add_document_form.save(commit=False)
+            doc.parent = parent_folder
+            doc.owner = request.user
+            doc.save()
+
+            dv = add_document_version_form.save(commit=False)
+            dv.parent = doc
+            dv.save()
+
+            doc.versions.add(dv)
+            doc.save()
+            return HttpResponseRedirect(reverse('repo-view', args=[parent_folder.id]))
+        else:
+            child_folders = Folder.objects.filter(parent=parent_folder)
+            child_documents = Document.objects.filter(parent=parent_folder)
+            return render(
+                request,
+                'docweb/repository.html',
+                {
+                    'top_folder': parent_folder,
+                    'child_folders': child_folders,
+                    'child_documents': child_documents,
+                    'add_document_form': add_document_form,
+                    'add_document_version_form': add_document_version_form,
+                    'display_add_document_dialog': True,
+                }
+            )

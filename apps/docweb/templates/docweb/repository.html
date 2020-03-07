@@ -4,21 +4,6 @@
 <head>
   <title>Repositext - Light CMS</title>
   <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
-
-  <style>
-    .model-dialog {
-      border: 1px solid gray;
-    }
-
-    button[type="button"],[type="submit"]  {
-      border: 1px;
-      background: none;
-      background-color: rgb(155, 207, 240);
-      box-shadow: none;
-      border-radius: 5px;
-      padding: 0.5em;
-    }
-  </style>
 </head>
 <body>
   <div class="wrapper">
@@ -105,19 +90,65 @@
           </form>
         </dialog>
 
+        <dialog id="add-document-dialog" class="model-dialog"> 
+          <h2>Add Document to {{ top_folder.name }}</h2>
+          <form action="{% url 'add-document-view' top_folder.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+              {{ add_document_form.as_table }}
+              {{ add_document_version_form.as_table }}
+              <tr>
+                <td></td>
+                <td>
+                  <button type="submit">Save</button>
+                  <button type="button" onclick='document.getElementById("add-document-dialog").close();'>Cancel</button>
+                </td>
+              </tr>
+            </table>
+          </form>
+          
+        </dialog>
+
+        <script>
+          let contentFileElem = document.getElementById("id_content_file");
+          let nameElem = document.getElementById('document_id_name');
+      
+          const setNameElemText = function () {
+            let fileName = contentFileElem.value.split('\\').pop();
+            nameElem.value = fileName;
+          }
+      
+          contentFileElem.onchange = setNameElemText;
+        </script>
+
         {% if display_add_form_dialog %}
           <script>
             document.getElementById("add-folder-dialog").showModal();
           </script>
         {% endif %}
 
-        <div class="children">
-          <h3>Folders</h3>
+        {% if display_add_document_dialog %}
+          <script>
+            document.getElementById("add-document-dialog").showModal();
+          </script>
+        {% endif %}
+        
+        <div class="folder-item-nav">
           <div class="add-folder">
             <a href="#" onclick='document.getElementById("add-folder-dialog").showModal();'>
               Create New Folder
             </a>
           </div>
+          <div class="add-document">
+            <a href="#" onclick='document.getElementById("add-document-dialog").showModal();'>
+              Upload New Document
+            </a>
+          </div>
+        </div>
+
+        <div class="children">
+          <h3>Folders</h3>
+          
           <table class="child-folder">
           {% for folder in child_folders %}
               <tr>

@@ -60,10 +60,31 @@ padding: 1em;
 }
 
 .container {
-	margin-right: auto;
-	margin-left: auto;
+margin-right: auto;
+margin-left: auto;
 }
 
 .login {
-	text-align: center;
+text-align: center;
+}
+
+.model-dialog {
+border: 1px solid gray;
+  }
+
+button[type="button"],[type="submit"]  {
+border: 1px;
+background: none;
+background-color: rgb(155, 207, 240);
+box-shadow: none;
+border-radius: 5px;
+padding: 0.5em;
+}
+
+.folder-item-nav {
+margin-left: 1em;
+margin-top: 1em;
+display: grid;
+grid-auto-flow: column;
+max-width: 30%;
 }

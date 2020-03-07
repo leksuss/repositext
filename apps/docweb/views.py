@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse
 from django.views import View
-from repositext.settings import MAX_RECENT_DOCS
+from repositext.settings import MAX_RECENT_DOCS, SYS_ROOT_FOLDER_NAME
 from apps.repo.models import Document, Folder
 from .forms import AddFolderForm, AddDocumentForm, AddDocumentVersionForm
 
@@ -19,7 +19,7 @@ def get_user_home_folder(request, home_folder):
 class IndexView(View):
     def get(self, request):
         if request.user.username == 'admin':
-            root_folder = Folder.objects.get(name='-ROOT-')
+            root_folder = Folder.objects.get(name=SYS_ROOT_FOLDER_NAME)
             child_folders = Folder.objects.filter(parent=root_folder)
             recent_docs = Document.objects.filter().order_by(
                 '-created'
@@ -44,7 +44,7 @@ class RepositoryView(View):
         if folder_id:
             top_folder = Folder.objects.get(pk=folder_id)
         else:
-            top_folder = Folder.objects.get(name='-ROOT-')
+            top_folder = Folder.objects.get(name=SYS_ROOT_FOLDER_NAME)
         child_folders = Folder.objects.filter(parent=top_folder)
         child_documents = Document.objects.filter(parent=top_folder)
         add_folder_form = AddFolderForm(owner=request.user, parent=top_folder, auto_id="folder_id_%s")
@@ -94,7 +94,7 @@ class RepositoryView(View):
 
 class UserHomeView(View):
     def get(self, request, username):
-        root_folder = Folder.objects.get(name='-ROOT-')
+        root_folder = Folder.objects.get(name=SYS_ROOT_FOLDER_NAME)
         home_folder = Folder.objects.get(name='Home', parent=root_folder)
 
         try:

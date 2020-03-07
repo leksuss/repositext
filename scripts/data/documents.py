@@ -15,12 +15,13 @@ django.setup()
 from django.contrib.auth.models import User  # noqa E402
 from django.core.files import File
 from django.core.files.base import ContentFile
+from repositext.settings import SYS_ROOT_FOLDER_NAME
 from apps.repo.models import Document, Folder, DocumentVersion  # noqa E402
 
 ADD_TEST_DOCUMENTS = True
 
 admin_user = User.objects.get(username='admin')
-root_folder = Folder.objects.get(name='-ROOT-')
+root_folder = Folder.objects.get(name=SYS_ROOT_FOLDER_NAME)
 default_doc_version = '0.1.0'
 
 documents = [

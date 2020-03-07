@@ -13,6 +13,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = script_utils.get_project_settings()
 django.setup()
 
 from django.contrib.auth.models import User  # noqa E402
+from repositext.settings import SYS_ROOT_FOLDER_NAME # noqa E402
 from apps.repo.models import Folder  # noqa E402
 
 ADD_TEST_FOLDERS = True
@@ -21,7 +22,7 @@ admin_user = User.objects.get(username='admin')
 
 init_folders = [
     {
-        'name': '-ROOT-',
+        'name': SYS_ROOT_FOLDER_NAME,
         'description': 'System root folder.',
         'owner': admin_user,
     },
@@ -32,14 +33,14 @@ root_folders = [
         'name': 'Home',
         'description': 'System home folder for users.',
         'owner': admin_user,
-        'parent': '-ROOT-',
+        'parent': SYS_ROOT_FOLDER_NAME,
     },
 ]
 
 class FolderLoader:
 
     def _get_root_folder(self):
-        return Folder.objects.get(name='-ROOT-')
+        return Folder.objects.get(name=SYS_ROOT_FOLDER_NAME)
 
     def add_init_folders(self):
         for each in init_folders:

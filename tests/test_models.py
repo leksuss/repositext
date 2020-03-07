@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
+from repositext.settings import SYS_ROOT_FOLDER_NAME
 from apps.repo.models import Folder
 
 class FolderTest(TestCase):
@@ -12,10 +13,10 @@ class FolderTest(TestCase):
 
     def test_folder_add(self):
         folder = Folder()
-        folder.name = '-ROOT-'
+        folder.name = SYS_ROOT_FOLDER_NAME
         folder.description = 'The system root folder'
         folder.owner = self.admin_user
         folder.save()
 
-        self.assertTrue(Folder.objects.get(name='-ROOT-'))
+        self.assertTrue(Folder.objects.get(name=SYS_ROOT_FOLDER_NAME))
         self.assertTrue(Folder.objects.get(description='The system root folder'))

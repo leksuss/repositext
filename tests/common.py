@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from repositext.settings import SYS_ROOT_FOLDER_NAME
 from apps.repo.models import Folder
 
 
@@ -22,7 +23,7 @@ def get_admin_user():
 
 def get_root_folder():
     root_folder = Folder()
-    root_folder.name = '-ROOT-'
+    root_folder.name = SYS_ROOT_FOLDER_NAME
     root_folder.description = 'System root folder'
     root_folder.owner = get_admin_user()
     root_folder.save()

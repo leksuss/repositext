@@ -59,7 +59,7 @@ class AddDocumentTestCase(TestCase):
     def setUp(self):
         self.home_folder = get_home_folder()
 
-    def test_get(self):
+    def test_post(self):
         client = Client()
         client.login(username='admin', password='admin')
         with open('test-documents/TestDocument1.docx', 'rb') as fp:
@@ -78,3 +78,26 @@ class AddDocumentTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         document = Document.objects.get(name='TestDocument1.docx')
         self.assertEqual(document.name, 'TestDocument1.docx')
+
+
+class AddFolderTestCase(TestCase):
+    def setUp(self):
+        self.home_folder = get_home_folder()
+
+    def test_post(self):
+        client = Client()
+        client.login(username='admin', password='admin')
+        response = client.post(
+            reverse(
+                'repo-view',
+                args=[self.home_folder.id, ]
+            ),
+            data = {
+                'name': 'Test Folder1',
+                'description': 'This is test folder #1',
+            },
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        folder = Folder.objects.get(name='Test Folder1')
+        self.assertEqual(folder.name, 'Test Folder1')

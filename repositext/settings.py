@@ -139,3 +139,7 @@ LOGOUT_REDIRECT_URL = '/docweb/login/'
 LOGIN_URL = '/docweb/login/'
 
 SYS_ROOT_FOLDER_NAME = '-ROOT-'
+
+CONTENT_FOLDER_NAME = 'content'
+
+CONTENT_FOLDER_STRUC = f'{CONTENT_FOLDER_NAME}/%Y/%m/%d/'

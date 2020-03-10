@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from repositext.settings import CONTENT_FOLDER_STRUC
 
 
 class UuidPrimaryKey(models.Model):
@@ -37,7 +38,7 @@ class Folder(UuidPrimaryKey, Timestamped):
 class DocumentVersion(UuidPrimaryKey, Timestamped):
     version = models.CharField('Version', max_length=11)
     content_file = models.FileField(
-        'Content File', upload_to='content/%Y/%m/%d/'
+        'Content File', upload_to=CONTENT_FOLDER_STRUC
     )
     created = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey(

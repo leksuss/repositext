@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpRequest, HttpResponse
 from django.shortcuts import render, reverse
 from django.views import View
 from repositext.settings import MAX_RECENT_DOCS, SYS_ROOT_FOLDER_NAME
@@ -6,7 +6,7 @@ from apps.repo.models import Document, Folder
 from .forms import AddFolderForm, AddDocumentForm, AddDocumentVersionForm
 
 
-def get_user_home_folder(request, home_folder):
+def get_user_home_folder(request, home_folder:Folder) -> Folder:
     user_folder = Folder()
     user_folder.name = request.user.username
     user_folder.description = f'Home folder for {request.user.username}'
@@ -17,7 +17,7 @@ def get_user_home_folder(request, home_folder):
 
 
 class IndexView(View):
-    def get(self, request):
+    def get(self, request:HttpRequest) -> HttpResponse:
         
         if request.user.username == 'admin':
             
@@ -46,7 +46,7 @@ class IndexView(View):
 
 
 class RepositoryView(View):
-    def get(self, request, folder_id=None):
+    def get(self, request:HttpRequest, folder_id:str=None) -> HttpResponse:
         
         if folder_id:
             top_folder = Folder.objects.get(pk=folder_id)
@@ -72,7 +72,7 @@ class RepositoryView(View):
             }
         )
 
-    def post(self, request, folder_id):
+    def post(self, request:HttpRequest, folder_id:str) -> HttpResponse:
         
         parent_folder = Folder.objects.get(pk=folder_id)
         add_folder_form = AddFolderForm(
@@ -108,7 +108,7 @@ class RepositoryView(View):
 
 class UserHomeView(View):
     
-    def get(self, request, username):
+    def get(self, request:HttpRequest, username:str) -> HttpResponse:
         
         root_folder = Folder.objects.get(name=SYS_ROOT_FOLDER_NAME)
         home_folder = Folder.objects.get(name='Home', parent=root_folder)
@@ -126,7 +126,7 @@ class UserHomeView(View):
 
 class AddDocumentView(View):
     
-    def post(self, request, folder_id):
+    def post(self, request:HttpRequest, folder_id:str) -> HttpResponse:
         
         parent_folder = Folder.objects.get(pk=folder_id)
         add_document_form = AddDocumentForm(request.POST, owner=request.user, parent=parent_folder)

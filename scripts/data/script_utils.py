@@ -1,5 +1,5 @@
 
-def get_project_settings():
+def get_project_settings() -> str:
     project_settings = None
     try:    
         from local import project_settings as project_settings

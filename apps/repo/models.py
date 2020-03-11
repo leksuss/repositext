@@ -1,5 +1,7 @@
 import uuid
 
+from typing import List, Dict, Any
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -101,11 +103,11 @@ class UserProfile(models.Model):
 
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
+def create_user_profile(sender:User, instance:User, created:bool, **kwargs:Any) -> None:
     if created:
         UserProfile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
+def save_user_profile(sender:User, instance:User, **kwargs:Any) -> None:
     instance.userprofile.save()

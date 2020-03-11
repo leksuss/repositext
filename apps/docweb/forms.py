@@ -13,7 +13,7 @@ class AddFolderForm(ModelForm):
         model = Folder
         fields = ['name', 'description',]
 
-    def clean_name(self):
+    def clean_name(self) -> str:
         name = self.cleaned_data['name']
         children = Folder.objects.filter(parent=self.parent)
         for child in children:
@@ -24,7 +24,7 @@ class AddFolderForm(ModelForm):
 
 class AddDocumentForm(ModelForm):
 
-    def __init__(self,*args,**kwargs): 
+    def __init__(self,*args:str,**kwargs:str): 
         self.owner=kwargs.pop('owner')
         self.parent=kwargs.pop('parent') 
         super(AddDocumentForm, self).__init__(*args,**kwargs)

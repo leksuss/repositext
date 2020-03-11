@@ -19,7 +19,7 @@ class ProjectSettingsExtractor:
     def __init__(self, debug=False):
         self.debug = debug
 
-    def show_valid_keys(self):
+    def _show_valid_keys(self):
         info = self._get_settings()
         for key in info:
             print(key)
@@ -38,7 +38,7 @@ class ProjectSettingsExtractor:
             except KeyError:
                 print('invalid key: ', arg)
                 print('The following keys are valid:')
-                self.show_valid_keys()
+                self._show_valid_keys()
                 sys.exit(1)
         return info
 

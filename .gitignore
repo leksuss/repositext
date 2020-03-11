@@ -137,4 +137,6 @@ static/js/node_modules/
 settings-local.py
 local.py
 settings-sqlite3.py
+run-all-tests.sh
+push.sh
 

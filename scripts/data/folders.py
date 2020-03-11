@@ -39,17 +39,17 @@ root_folders = [
 
 class FolderLoader:
 
-    def _get_root_folder(self):
+    def _get_root_folder(self) -> Folder:
         return Folder.objects.get(name=SYS_ROOT_FOLDER_NAME)
 
-    def add_init_folders(self):
+    def add_init_folders(self) -> None:
         for each in init_folders:
             folder = Folder()
             for k, v in each.items():
                 setattr(folder, k, v)
             folder.save()
 
-    def add_test_folders(self, amount=4):
+    def add_test_folders(self, amount:int=4) -> None:
         for each in enumerate(range(amount), 1):
             folder = Folder()
             folder.name = f'TestFolder-{each[0]}'
@@ -58,7 +58,7 @@ class FolderLoader:
             folder.parent = self._get_root_folder()
             folder.save()
 
-    def add_root_folders(self):
+    def add_root_folders(self) -> None:
         for each in root_folders:
             folder = Folder()
             folder.name = each['name']
@@ -67,7 +67,7 @@ class FolderLoader:
             folder.parent = Folder.objects.get(name=each['parent'])
             folder.save()
 
-    def run(self):
+    def run(self) -> None:
         print('  Adding system and example folders ...')
         self.add_init_folders()
         self.add_root_folders()

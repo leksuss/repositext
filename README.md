@@ -12,7 +12,7 @@ If you're new to working on open source projects and not sure how to get your en
 
 ### How to setup for development
 
-* Install Python 3.8.1 -- Using pyenv (see https://github.com/pyenv/pyenv) is highly recommended.
+* Install Python 3.8.2 -- Using pyenv (see https://github.com/pyenv/pyenv) is highly recommended.
 * Clone this repo to a folder.
 
 ```

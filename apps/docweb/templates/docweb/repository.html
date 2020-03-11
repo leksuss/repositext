@@ -110,26 +110,18 @@
         </dialog>
 
         <script>
-          let contentFileElem = document.getElementById("id_content_file");
-          let nameElem = document.getElementById('document_id_name');
-      
-          const setNameElemText = function () {
-            let fileName = contentFileElem.value.split('\\').pop();
-            nameElem.value = fileName;
-          }
-      
-          contentFileElem.onchange = setNameElemText;
+          
         </script>
 
         {% if display_add_form_dialog %}
           <script>
-            document.getElementById("add-folder-dialog").showModal();
+            showAddDocumentForm();
           </script>
         {% endif %}
 
         {% if display_add_document_dialog %}
           <script>
-            document.getElementById("add-document-dialog").showModal();
+            showAddFolderForm();
           </script>
         {% endif %}
         
@@ -227,5 +219,7 @@
       </div>
     </div>
   </div>
+  <script src="/static/js/repository.js">
+  </script>
 </body>
 </html>

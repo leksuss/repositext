@@ -43,8 +43,12 @@ padding: 1em;
 margin-top: 1em;
 }
 
-.folder-link {
+.folder-link, .current-folder-label {
 margin-left: 10px;
+}
+
+.folder-link {
+  font-weight: bolder;
 }
 
 .nav-item > a, .nav-item > a:hover, .nav-item > a:active, .nav-item a:visited { color: white; }

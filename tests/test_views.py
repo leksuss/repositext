@@ -5,7 +5,10 @@ from django.core.files.base import ContentFile
 from django.shortcuts import reverse
 from django.test import Client, TestCase
 from repositext.settings import SYS_ROOT_FOLDER_NAME
-from tests.common import get_root_folder, get_test_user, get_home_folder, TEST_USER
+from tests.common import (
+    get_root_folder, get_test_user, get_home_folder,
+    TEST_USER, add_test_user
+)
 from apps.repo.models import Document, Folder
 
 
@@ -24,10 +27,19 @@ class IndexTestCase(TestCase):
 class RepositoryTestCase(TestCase):
     def setUp(self):
         self.root_folder = get_root_folder()
+        add_test_user()
 
     def test_get(self):
-        """ This will need to be rewritten since auth has been introduced."""
-        pass
+        client = Client()
+        client.login(
+            username=TEST_USER['username'],password=TEST_USER['password']
+        )
+        response = client.get(
+            reverse('repo-view', args=[self.root_folder.id]),
+            follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(b'Current Folder:' in response.content)
 
 
 class UserHomeTestCase(TestCase):

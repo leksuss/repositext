@@ -35,17 +35,24 @@ TEST_USER = {
     'password': 'testsecret',
 }
 
-def get_test_user():
+
+def add_test_user():
     test_user = User()
     test_user.username = TEST_USER['username']
     test_user.email = TEST_USER['email']
     test_user.set_password(TEST_USER['password'])
     test_user.save()
+
+
+def get_test_user(create=False):
+    if create:
+        add_test_user()
+    test_user = User.objects.get(username=TEST_USER['username'])
     return test_user
 
 
 def get_home_folder():
-    test_user = get_test_user()
+    test_user = get_test_user(create=True)
     home_folder = Folder()
     home_folder.name = 'Home'
     home_folder.description = 'System home folder for users'

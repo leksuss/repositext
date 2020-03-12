@@ -20,14 +20,23 @@ def get_admin_user():
     return admin_user
     
 
-
-def get_root_folder():
+def add_root_folder():
     root_folder = Folder()
     root_folder.name = SYS_ROOT_FOLDER_NAME
     root_folder.description = 'System root folder'
     root_folder.owner = get_admin_user()
     root_folder.save()
+
+def get_root_folder(create=False):
+    if create:
+        root_folder = Folder.objects.get(name=SYS_ROOT_FOLDER_NAME)
+    try:
+        root_folder = Folder.objects.get(name=SYS_ROOT_FOLDER_NAME)
+    except Folder.DoesNotExist:
+        add_root_folder()
+        root_folder = Folder.objects.get(name=SYS_ROOT_FOLDER_NAME)
     return root_folder
+
 
 TEST_USER = {
     'username': 'testuser',

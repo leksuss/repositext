@@ -6,6 +6,8 @@ from apps.repo.models import Document, Folder
 from .forms import AddFolderForm, AddDocumentForm, AddDocumentVersionForm
 
 
+PAGE_TITLE = 'Repositext (Open Source CMS)'
+
 def get_user_home_folder(request, home_folder:Folder) -> Folder:
     user_folder = Folder()
     user_folder.name = request.user.username
@@ -34,6 +36,7 @@ class IndexView(View):
                     'root_folder': root_folder,
                     'child_folders': child_folders,
                     'recent_docs': recent_docs,
+                    'page_title': PAGE_TITLE,
                 }
             )
         else:
@@ -69,6 +72,7 @@ class RepositoryView(View):
                 'add_folder_form': add_folder_form,
                 'add_document_form': add_document_form,
                 'add_document_version_form': add_document_version_form,
+                'page_title': PAGE_TITLE,
             }
         )
 
@@ -101,6 +105,7 @@ class RepositoryView(View):
                     'child_documents': child_documents,
                     'add_folder_form': add_folder_form,
                     'display_add_form_dialog': True,
+                    'page_title': PAGE_TITLE,
                 }
             )
 
@@ -161,5 +166,6 @@ class AddDocumentView(View):
                     'add_document_form': add_document_form,
                     'add_document_version_form': add_document_version_form,
                     'display_add_document_dialog': True,
+                    'page_title': PAGE_TITLE,
                 }
             )

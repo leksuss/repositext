@@ -10,6 +10,34 @@ from tests.common import (
     TEST_USER, add_test_user
 )
 from apps.repo.models import Document, Folder
+from apps.docweb.views import PAGE_TITLE
+
+
+class GeneralViewTestCase(TestCase):
+    def setUp(self):
+        self.root_folder = get_root_folder()
+        self.home_folder = get_home_folder()
+        # add_test_user()
+    
+    def test_page_title(self):
+        client = Client()
+        client.login(
+            username=TEST_USER['username'],password=TEST_USER['password']
+        )
+        
+        response = client.get(
+            reverse('index-view'),
+            follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(str.encode(PAGE_TITLE) in response.content)
+
+        response = client.get(
+            reverse('repo-view', args=[self.root_folder.id]),
+            follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(str.encode(PAGE_TITLE) in response.content)
 
 
 class IndexTestCase(TestCase):

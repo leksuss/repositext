@@ -3,6 +3,27 @@
 <head>
   <title>{{ page_title }}</title>
   <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      height: 100%;
+    }
+    footer {
+      position: fixed;
+      left: 0;
+      right: 0;
+			bottom: 0;
+			height: 25px;
+      background: lightgray;
+      color: darkslategray;
+      width: 100%;
+      padding: 1em;
+      text-align: center;
+      font-size: smaller;
+    }
+  </style>
 </head>
 <body>
   <div class="wrapper">
@@ -21,5 +42,8 @@
     {% block content %}
 
     {% endblock %}
+    <footer>
+      {{ page_title }} AGPL 3.0 License
+    </footer>
 </body>
 </html>

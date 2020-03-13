@@ -1,3 +1,11 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
 .top {
 width; 100%
 }
@@ -91,4 +99,18 @@ margin-top: 1em;
 display: grid;
 grid-auto-flow: column;
 max-width: 30%;
+}
+
+footer {
+position: fixed;
+left: 0;
+right: 0;
+bottom: 0;
+height: 25px;
+background: lightgray;
+color: darkslategray;
+width: 100%;
+padding: 1em;
+text-align: center;
+font-size: smaller;
 }

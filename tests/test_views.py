@@ -39,6 +39,12 @@ class GeneralViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(str.encode(PAGE_TITLE) in response.content)
 
+        reponse = client.get(
+            reverse('login')
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(str.encode(PAGE_TITLE) in response.content)
+
 
 class IndexTestCase(TestCase):
     def setUp(self):

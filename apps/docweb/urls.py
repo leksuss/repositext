@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import path
-from .views import IndexView, RepositoryView, UserHomeView, AddDocumentView
+from django.conf.urls import url
+from .views import IndexView, RepositoryView, UserHomeView, AddDocumentView, PAGE_TITLE
 from django.contrib.auth import views as auth_views
 
 
@@ -23,7 +24,15 @@ urlpatterns = [
         name="add-document-view"
     ),
     path(
-        'login/', auth_views.LoginView.as_view(), name='login'),
+        'login/',
+        auth_views.LoginView.as_view(
+            extra_context={
+                'page_title': PAGE_TITLE,
+            }
+        ),
+        name='login'
+        
+    ),
     path(
         'logout/', auth_views.LogoutView.as_view(),
         {'next_page': '/login'}, name='logout'

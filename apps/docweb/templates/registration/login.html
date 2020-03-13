@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Repositext</title>
-	<link rel="stylesheet" type="text/css" href="/static/css/styles.css">
-</head>
-<body>
-  <div class="header">
-  	<div class="display-name">
-  	<h1>Repositext</h1>
-  	</div>
-  </div>
-  <div class="container">
+{% extends 'docweb/base.html' %}
+  {% block content %}
+  <div class="content">
   	<div class="login">
   		<h4><strong>Login</strong></h4>
   		<form method="POST" action="{% url 'login' %}">
@@ -19,6 +9,5 @@
     	<button type="submit" class="btn btn-primary">Login</button>
   		</form>
   	</div>
-  </div>	
-</body>
-</html>
+  </div>
+{% endblock %}

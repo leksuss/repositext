@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>{{ page_title }}</title>
-  <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
-</head>
-<body>
-  <div class="wrapper">
-
-    <div class="top">
-      <div class="header">
-        <div class="display-name">
-          <h1>Repositext</h1>
-        </div>
-        {% include 'docweb/common/_navigation.html' %}
-      </div>
-    </div>
-
+{% extends 'docweb/base.html' %}
+  {% block content %}
     <div class="content">
 
       <div class="doc-view">
@@ -56,6 +40,4 @@
       </div>
     </div>
   </div>
-</body>
-</html>
-
+{% endblock %}

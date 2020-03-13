@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ page_title }}</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="wrapper">
+
+    <div class="top">
+      <div class="header">
+        <div class="display-name">
+          <h1>Repositext</h1>
+        </div>
+        {% if request.get_full_path != "/docweb/login/" %}
+            {% include 'docweb/common/_navigation.html' %}
+        {% endif %}
+      </div>
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>

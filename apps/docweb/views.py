@@ -130,7 +130,27 @@ class UserHomeView(View):
 
 
 class AddDocumentView(View):
-    
+
+    def save_document(
+            self,
+            request: HttpRequest,
+            parent_folder,
+            add_document_form,
+            add_document_version_form
+        ) -> None:
+        doc = add_document_form.save(commit=False)
+        doc.parent = parent_folder
+        doc.owner = request.user
+        doc.save()
+
+        dv = add_document_version_form.save(commit=False)
+        dv.parent = doc
+        dv.save()
+
+        doc.versions.add(dv)
+        doc.save()
+
+
     def post(self, request:HttpRequest, folder_id:str) -> HttpResponse:
         
         parent_folder = Folder.objects.get(pk=folder_id)
@@ -138,17 +158,9 @@ class AddDocumentView(View):
         add_document_version_form = AddDocumentVersionForm(request.POST, request.FILES)
 
         if add_document_form.is_valid() and add_document_version_form.is_valid():
-            doc = add_document_form.save(commit=False)
-            doc.parent = parent_folder
-            doc.owner = request.user
-            doc.save()
 
-            dv = add_document_version_form.save(commit=False)
-            dv.parent = doc
-            dv.save()
+            self.save_document(request, parent_folder, add_document_form, add_document_version_form)
 
-            doc.versions.add(dv)
-            doc.save()
             return HttpResponseRedirect(reverse('repo-view', args=[parent_folder.id]))
         
         else:
